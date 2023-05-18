@@ -1,0 +1,27 @@
+{% extends 'index.html' %}
+{% block title %} Login {% endblock %}
+
+{% block content %}
+<div class="container" style="display: flex; justify-content: center;">
+    <div class="card mt-5" style="width: 25rem; height: 20rem;">
+        <div class="card-header">Login</div>
+        <div class="card-body">
+            <form class="form" role="form" method="POST" style="padding: 4px; margin-top: 1rem;">
+                {% csrf_token %}
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-info">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Login</button>
+                <p id="login" style="margin-top:1rem ;">Create New Password <a
+                        href="{% url 'forgot_password' %}">Forgottern Password</a></p>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "index.html" %}
+{% block content %}
+<style>
+  .float-start {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    height: 25%;
+    width: 100%;
+  }
+  .btn{
+    text-decoration: none;
+  }
+  .comments{
+    margin-left: 6rem;
+  }
+  #chead{
+    font-size: 14px;
+  }
+  #cbody{
+    font-size: 12px;
+  }
+</style>
+<div class="post-container" style="height: 60rem;">
+  <div class="post">
+    <p class="date">{{ post_detials.date }}</p>
+    <p>
+    </p>
+    <h1>{{ post_detials.title }}</h1>
+    <div class="post-content">
+      <div>
+        {% if post_detials.post_image %}
+        <img src="{{ post_detials.post_image.url }}" class="float-start" alt="Loading">
+        {% endif %}
+      </div>
+      <p>{{ post_detials.description|linebreaks|urlize }}</p>
+      <p class="author">{{ post_detials.author }}</p>
+    </div>
+  </div>
+  <div style="margin-top: 1rem; margin-left: 6rem; display: flex;">
+    <form action="{% url 'like_post' pk=post_detials.id %}" method="post">
+      {% csrf_token %}
+      {% if liked %}
+      <button class="btn btn-danger btn-sm" name="post_id" value="{{post_details.id}}" type="submit">Unlike</button>
+      {% else %}
+      <button class="btn btn-primary btn-sm" name="post_id" value="{{post_details.id}}" type="submit">Like</button>
+      {% endif %}
+    </form>
+    <p style="margin-left: 1rem;margin-top: 0.3rem;">{{ total_likes }} Likes</p>
+  </div>
+  <div class="comments"> 
+    {% if not comments %}
+     <h3>No comments</h3>
+     {% else %}
+     <p>Comments</p>
+     {% for comment in comments %}
+     <div id="chead">{{ comment.name }}
+      {{ comment.added_date }}</div>
+     <div id="cbody">{{ comment.body }}</div>
+     <br>
+    {% endfor %} 
+    {% endif %}
+    <a class="btn btn-md btn-primary" href="{% url 'addcomments' pk=post_detials.id  %}">Add Comment</a>
+  </div>
+</div>
+
+{% endblock %}

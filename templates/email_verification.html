@@ -1,0 +1,54 @@
+{% extends "index.html" %}
+{% block content %}
+<style>
+  .form-group {
+    padding: 10px;
+  }
+
+  #message {
+    font-size: 20px;
+    color: #000;
+  }
+
+  #login {
+    padding: 5px;
+    margin-top: 10px;
+  }
+
+  .button {
+    padding: 5px;
+    margin-top: 10px;
+  }
+  .form-control{
+    margin-top: 0.5rem;
+  }
+</style>
+<div class="container" style="display: flex; justify-content: center;">
+  <div class="card mt-5" style="width: 25rem; height: 30rem;">
+    <div class="card-header">Email Verification</div>
+    <div class="card-body" >
+      
+      <form method="post" >
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="exampleInputPassword1">Email</label>
+            <input type="email" name="email" class="form-control " id="exampleInputPassword1"
+              placeholder="Enter the email">
+          </div>
+          
+          {% for message in messages %}
+          <p id="message">{{ message }}</p>
+          {% endfor %}
+          <div class="button">
+            <button class="btn btn-md btn-primary " type="submit" >Verify</button>
+          </div>
+      </form>
+     
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends 'index.html' %}
+{% block title %} MyPost {% endblock %}
+{% load static %}
+{% block content %}
+<style>
+    .jumbotron {
+        /* background-image: url("https://tse3.mm.bing.net/th?id=OIP.AhWk5fyjDpniYOI9WLdjawHaEK&pid=Api&P=0"); */
+        background-size: 100% 100%;
+        text-align: center;
+        opacity: 0.7;
+    }
+
+    .jumbotron:hover {
+        opacity: 1;
+        transition-delay: 0.3s;
+    }
+
+    .pagebutton {
+        text-decoration: none;
+    }
+
+    .nomatch {
+        margin-top: 1rem;
+
+    }
+
+    .post {
+        text-decoration: none;
+        color: #000;
+
+    }
+
+    .float-start {
+        margin-top: 1.5rem;
+        margin-right: 1rem;
+    }
+
+    .btn {
+        margin-right: 3rem;
+        width: 7rem;
+    }
+    .alert{
+       width: 70%;
+       margin-left: 15%;
+   }
+</style>
+<div class="jumbotron" style="height: 15rem;">
+    <h1 class="display-4">CodingThunder</h1>
+    <p class="lead">Get Amazing posts about technology</p>
+    <!-- <hr class="my-4"> -->
+    <p>Know about us more</p>
+    <a class="btn btn-md btn-primary" href="{% url 'about_us' %}" role="button">About Us</a>
+</div>
+
+<br>
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-info">
+    {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+
+<div class="post-container row " style="height:57rem;">
+
+    {% for post in page_obj %}
+    <a class="post" href="{% url 'post' pk=post.id %}">
+        {% if post.post_image %}
+        <img src="{% get_media_prefix %}{{ post.post_image }}" class="float-start" style="width: 7rem; height: 10rem;"
+            alt="Loading">
+        {% endif %}
+        <div class="post">
+            <p class="date">{{ post.date|timesince }}</p>
+            <p>
+            </p>
+            <h1>{{ post.title|title }}</h1>
+            <div class="post-content">
+                <p>{{ post.description|truncatechars:50 }}</p>
+                <p class="author">{{ post.author }}</p>
+            </div>
+        </div>
+    </a>
+    <div>
+        <a class="btn btn-sm btn-primary  " href="{% url 'edit_post' pk=post.id %}"
+            style="margin-bottom: 1rem;float: right; " role="button">Edit Post</a>
+    </div>
+    <hr>
+    {% endfor %}
+
+
+</div>
+
+<center>
+    {%if page_obj.has_previous %} <!-- whether the previous page exists -->
+    <a href="?page={{page_obj.previous_page_number}}" class="pagebutton">Previous</a> <!-- link to the prev page -->
+
+    {% endif %}
+    <span>{{page_obj.number}}</span> <!-- the current page number  -->
+
+    {%if page_obj.has_next %} <!-- whether the next page exists  -->
+    <a href="?page={{page_obj.next_page_number}}" class="pagebutton">Next</a> <!-- link to the next page  -->
+    {% endif %}
+</center>
+
+
+
+
+
+
+
+
+{% endblock %}

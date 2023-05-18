@@ -1,0 +1,65 @@
+{% extends "index.html" %}
+{% block content %}
+<style>
+   .form-group {
+      padding: 10px;
+   }
+
+   #message {
+      font-size: 20px;
+      color: #000;
+   }
+
+   #login {
+      padding: 5px;
+      margin-top: 10px;
+   }
+
+   .button {
+      padding: 5px;
+      margin-top: 10px;
+   }
+   .input{
+      width: 15rem;
+      margin-top: 0.5rem;
+   }
+</style>
+<div class="container" style="display: flex; justify-content: center;">
+   <div class="card mt-5" style="width: 25rem; height: 35rem;">
+      <div class="card-header">Register</div>
+      <div class="card-body" style="margin-left: 5rem;">
+         <form method="POST" >
+            {% csrf_token %}
+
+            <div class="form-group">
+               <label for="formGroupExampleInput">Username</label>
+               <div class="input" >{{ form.username }}</div>
+            </div>
+            <div class="form-group">
+               <label for="exampleInputEmail1">Email address</label>
+               <div class="input" >{{ form.email }}</div>
+            </div>
+            <div class="form-group">
+               <label for="exampleInputPassword1">Password</label>
+               <div class="input" >{{ form.password1 }}</div>
+            </div>
+            <div class="form-group">
+               <label for="exampleInputPassword1">Password Confirmation</label>
+               <div class="input" >{{ form.password2 }}</div>
+            </div>
+            <div>
+               {% for message in messages %}
+               <p id="message">{{ message }}</p>
+               {% endfor %}
+            </div>
+            <div class="button">
+               <button class="btn btn-md btn-primary " type="submit">Register</button>
+               <p id="login">Already Have Account <a href="{% url 'login' %}">Login</a></p>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
+</div>
+
+{% endblock %}
