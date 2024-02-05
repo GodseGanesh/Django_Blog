@@ -19,20 +19,31 @@
   #cbody{
     font-size: 12px;
   }
+  .img-container{
+    overflow: hidden;
+    width: 100%;
+    height: 50vh;
+  }
+  .img-container img{
+    width: 100%;
+    height: 100%;
+   
+   
+  } 
 </style>
-<div class="post-container" style="height: 60rem;">
+<div class="post-container" style="height: auto;">
   <div class="post">
     <p class="date">{{ post_detials.date }}</p>
     <p>
     </p>
     <h1>{{ post_detials.title }}</h1>
-    <div class="post-content">
-      <div>
+    <div class="post-content grid">
+      <div class="img-container" >
         {% if post_detials.post_image %}
-        <img src="{{ post_detials.post_image.url }}" class="float-start" alt="Loading">
+        <img src="{{ post_detials.post_image.url }}"  alt="Loading">
         {% endif %}
       </div>
-      <p>{{ post_detials.description|linebreaks|urlize }}</p>
+      <p>{{ post_detials.description|striptags|linebreaks|urlize|safe }}</p>
       <p class="author">{{ post_detials.author }}</p>
     </div>
   </div>

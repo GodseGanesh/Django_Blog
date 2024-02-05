@@ -51,12 +51,12 @@
 {% endfor %}
 {% endif %}
 
-<div class="post-container row" style="height:53rem;">
+<div class="post-container row" style="height:auto;">
   {% for post in page_obj.object_list %}
   <a class="post" href="{% url 'post' pk=post.pk %}">
-    <div class="float-start">
+    <div class="float-start" >
       {% if post.post_image %}
-      <img src="{{ post.post_image.url }}" class="float-start" style="width: 7rem; height: 10rem;" alt="Loading">
+      <img src="{{ post.post_image.url }}" class="float-start" style="width: 8rem;height: 12rem;" alt="Loading">
       {% endif %}
     </div>
     <div class="post">
@@ -64,14 +64,14 @@
       <p>
       </p>
       <h1>{{ post.title|title }}</h1>
-      <div class="post-content">
+      <div class="post-content mx-2">
 
-        <p>{{ post.description|truncatechars:50|linebreaks }}</p>
+        <p>{{ post.description|striptags|truncatechars:40|linebreaks }}</p>
         <p>{{ post.author }}</p>
       </div>
     </div>
   </a>
-  <hr>
+  <hr style="margin-top: 2rem;">
   {% endfor %}
 </div>
 

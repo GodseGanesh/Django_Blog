@@ -75,7 +75,7 @@
             </p>
             <h1>{{ post.title|title }}</h1>
             <div class="post-content">
-                <p>{{ post.description|truncatechars:50 }}</p>
+                <p>{{ post.description|striptags|truncatechars:50 }}</p>
                 <p class="author">{{ post.author }}</p>
             </div>
         </div>

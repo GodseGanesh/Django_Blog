@@ -124,6 +124,7 @@ def post_d(request,pk=1):
     #if user already liked
     if post_detials.likes.filter(id=request.user.id).exists():
          liked=True
+    
     context={'post_detials':post_detials,'total_likes':total_likes,'liked':liked,'comments':comments}
     return render(request,'post.html',context)
 
