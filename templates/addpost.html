@@ -1,5 +1,6 @@
 {% extends "index.html" %}
 {% block content %}
+{% load static %}
 <style>
   .form-group {
     margin-top: 1rem;
@@ -12,6 +13,10 @@
     float: left;
   }
 </style>
+
+<script src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
 <div class="container" style="display: flex; justify-content: center; padding: 4px;">
   <div class="card-body">
     <form class="row mb-5 ps-2"  method="POST" enctype="multipart/form-data">
