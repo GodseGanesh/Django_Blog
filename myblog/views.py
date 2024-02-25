@@ -71,8 +71,11 @@ def register(request):
             form = CreateUserForm(request.POST)
             if form.is_valid():
                 form.save()  
-                user=form.cleaned_data.get('username')
                 # email=form.cleaned_data.get('email')
+                # print(email)
+                # print(validate_email(email))
+                user=form.cleaned_data.get('username')
+                
                 
                 messages.success(request,'Account created successfully for '+user )
                 return redirect('home')

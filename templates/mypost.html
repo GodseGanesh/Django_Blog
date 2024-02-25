@@ -44,13 +44,7 @@
        margin-left: 15%;
    }
 </style>
-<div class="jumbotron" style="height: 15rem;">
-    <h1 class="display-4">CodingThunder</h1>
-    <p class="lead">Get Amazing posts about technology</p>
-    <!-- <hr class="my-4"> -->
-    <p>Know about us more</p>
-    <a class="btn btn-md btn-primary" href="{% url 'about_us' %}" role="button">About Us</a>
-</div>
+
 
 <br>
 {% if messages %}
@@ -61,34 +55,76 @@
 {% endfor %}
 {% endif %}
 
-<div class="post-container row " style="height:57rem;">
+{% for post in page_obj %}
 
-    {% for post in page_obj %}
-    <a class="post" href="{% url 'post' pk=post.id %}">
+<div class="container-fluid" style="width: 80%; margin-top: 2rem">
+
+    <div
+      class="card row flex-row mb-4"
+      style="
+        width: 100%;
+        border-radius: 20px;
+        box-sizing: border-box;
+        overflow: hidden;
+      "
+    >
+      <div class="col-md-6 col-sm-12">
         {% if post.post_image %}
-        <img src="{% get_media_prefix %}{{ post.post_image }}" class="float-start" style="width: 7rem; height: 10rem;"
-            alt="Loading">
+        <img
+          src="/media/{{ post.post_image }}"
+          class="card-img"
+          alt="....."
+          style="width: 100%; height: 250px"
+        />
+        {% else %}
+        <img
+          src=""
+          class="card-img"
+          alt="NO Image"
+          style="width: 100%; height: 250px"
+        />
         {% endif %}
-        <div class="post">
-            <p class="date">{{ post.date|timesince }}</p>
-            <p>
-            </p>
-            <h1>{{ post.title|title }}</h1>
-            <div class="post-content">
-                <p>{{ post.description|striptags|truncatechars:50 }}</p>
-                <p class="author">{{ post.author }}</p>
-            </div>
+      </div>
+
+      <div class="card-body col-md-6 col-sm-12">
+        <h5 class="card-title">{{ post.title|title }}</h5>
+        <!-- <div class="projcard-subtitle">This explains the card in more detail</div> -->
+        <div class="card-bar"></div>
+        <p class="card-text">
+          {{ post.description|striptags|truncatechars:250|linebreaks }}
+        </p>
+        <div class="row" style="margin-top: 5rem; margin-bottom: 2rem">
+          <span class="col-6"
+            ><span style="font-weight: 500">Author: </span> {{ post.author }}</span
+          >
+          <span class="col-6"
+            ><span style="font-weight: 500">Posted:</span> {{ post.date|timesince }} ago</span
+          >
         </div>
-    </a>
-    <div>
-        <a class="btn btn-sm btn-primary  " href="{% url 'edit_post' pk=post.id %}"
-            style="margin-bottom: 1rem;float: right; " role="button">Edit Post</a>
+        <div>
+          <a
+            class="btn btn-sm btn-dark"
+            href="{% url 'post' pk=post.id %}"
+            style="margin: 2rem; float: left"
+            role="button"
+            >Read More
+          </a>
+        </div>
+
+        <div>
+          <a
+            class="btn btn-sm btn-primary"
+            href="{% url 'edit_post' pk=post.id %}"
+            style="margin: 2rem; float: right"
+            role="button"
+            >Edit Post</a>
+        </div>
+      </div>
     </div>
-    <hr>
-    {% endfor %}
-
-
+  
 </div>
+
+{% endfor %}
 
 <center>
     {%if page_obj.has_previous %} <!-- whether the previous page exists -->

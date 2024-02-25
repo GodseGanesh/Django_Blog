@@ -1,18 +1,13 @@
 {% extends "index.html" %}
 {% block content %}
 <style>
-  .float-start {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    height: 25%;
-    width: 100%;
-  }
+  
   .btn{
     text-decoration: none;
   }
-  .comments{
-    margin-left: 6rem;
-  }
+  /* .comments{
+    margin-left: 1rem;
+  } */
   #chead{
     font-size: 14px;
   }
@@ -27,51 +22,141 @@
   .img-container img{
     width: 100%;
     height: 100%;
-   
-   
   } 
+  
+  .container {
+    max-width: 80%;
+    margin-top: 5rem;
+    overflow: auto; /* Add overflow to handle floated elements */
+  }
+
+  
+  .likebtn {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 10px;
+    border: none;
+    cursor: pointer;
+    opacity: 70%;
+  }
+  .likebtn:hover{
+    opacity: 100%;
+  }
+  .commentbtn{
+    background-color: #3498db;
+    color: #121010;
+    padding: 10px 20px;
+    font-size: 11px;
+    border: none;
+    cursor: pointer;
+    opacity: 70%;
+
+  }
+  .commentbtn:hover{
+    opacity: 100%;
+  }
+  /* .clear::after {
+    content: "";
+    display: table;
+    clear: both;
+  } */
+  
 </style>
-<div class="post-container" style="height: auto;">
-  <div class="post">
-    <p class="date">{{ post_detials.date }}</p>
-    <p>
-    </p>
-    <h1>{{ post_detials.title }}</h1>
-    <div class="post-content grid">
-      <div class="img-container" >
+<script>
+  $(window).load(function() {
+  $('.post-module').hover(function() {
+    $(this).find('.description').stop().animate({
+      height: "toggle",
+      opacity: "toggle"
+    }, 300);
+  });
+});
+
+    // Function to move post content below the image when the navbar collapses
+   
+
+</script>
+<div>
+<div class="container-fluid" style="width: 80%;" >
+  <!-- <div class="row" > -->
+    <!-- Post-->
+    <div class="post-module" style="max-width: 100%;max-height: 100%; margin-bottom: 5rem;">
+      <!-- Thumbnail-->
+      
+      <div class="thumbnail " style="width: 100%;height: 40%;">
         {% if post_detials.post_image %}
-        <img src="{{ post_detials.post_image.url }}"  alt="Loading">
-        {% endif %}
+        <img src="{{ post_detials.post_image.url }}"  alt="Loading" >
+        {% endif %}</div>
+     
+      <!-- Post Content-->
+      <div class="post-content" style="position: initial;">
+        <h6>Author : {{ post_detials.author }}</h6>
+        <h1 class="title">{{ post_detials.title }}</h1>
+        <!-- <h2 class="sub_title">And Subtitle Goes Here.</h2> -->
+        <p class="description" style="display: none; height: 100px; opacity: 1;">{{ post_detials.description|striptags|linebreaks|urlize|safe }}</p>
+        <div class="post-meta row">
+          <span class="timestamp col-md-2 col-sm-12" style="margin-top: 2px;">{{ post_detials.date }}</span>
+
+          <!-- LIkes -->
+          <span class="comments col-md-4 col-sm-12 "><form action="{% url 'like_post' pk=post_detials.id %}" method="post">
+          {% csrf_token %}
+          
+            {% if liked %}
+            <span class="comments col-md-3 col-sm-12">
+            <button class="likebtn" style="background-color: #e92107;margin-top: 2rem;"  name="post_id" value="{{post_details.id}}" type="submit">
+            <i class="fas fa-thumbs-down fa-lg"></i>  
+          </button> </span>
+          {% else %}
+          <span class="comments col-md-3 col-sm-12" style="margin-top: 2rem;"><button class="likebtn" name="post_id" value="{{post_details.id}}" type="submit">
+            <i class="fas fa-thumbs-up fa-lg"></i> 
+          </button> {{ total_likes }} Likes </span>
+          {% endif %}
+         </form>
+         
+          <!-- <span style="margin-top:2rem;padding:3px;" ></span> -->
+        </span>
+        <!-- Comments -->
+          <span class="comments col-md-3 col-sm-12" style="margin-top: 2rem;"><a class="commentbtn" style="background-color: #348edd; "
+            href="{% url 'addcomments' pk=post_detials.id  %} "> 
+            <span style="padding: 3px; color: #fff;" >Add Comment  <i class="fa fa-comments fa-lg"></i></span>
+          </a></span>
+        </div>
       </div>
-      <p>{{ post_detials.description|striptags|linebreaks|urlize|safe }}</p>
-      <p class="author">{{ post_detials.author }}</p>
-    </div>
-  </div>
-  <div style="margin-top: 1rem; margin-left: 6rem; display: flex;">
-    <form action="{% url 'like_post' pk=post_detials.id %}" method="post">
-      {% csrf_token %}
-      {% if liked %}
-      <button class="btn btn-danger btn-sm" name="post_id" value="{{post_details.id}}" type="submit">Unlike</button>
-      {% else %}
-      <button class="btn btn-primary btn-sm" name="post_id" value="{{post_details.id}}" type="submit">Like</button>
-      {% endif %}
-    </form>
-    <p style="margin-left: 1rem;margin-top: 0.3rem;">{{ total_likes }} Likes</p>
-  </div>
-  <div class="comments"> 
+      
+          
+        
+   <!-- </div> -->
+   </div>
+   <div >
     {% if not comments %}
-     <h3>No comments</h3>
+     <h4>No comments</h4>
      {% else %}
-     <p>Comments</p>
+     <h4>Comments</h4>
+     <div class="row " > 
      {% for comment in comments %}
+     <div class="col-md-3" style="margin: 2px;">
      <div id="chead">{{ comment.name }}
       {{ comment.added_date }}</div>
      <div id="cbody">{{ comment.body }}</div>
-     <br>
+    </div>
     {% endfor %} 
     {% endif %}
-    <a class="btn btn-md btn-primary" href="{% url 'addcomments' pk=post_detials.id  %}">Add Comment</a>
   </div>
 </div>
+</div>
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  
+
+
 
 {% endblock %}
