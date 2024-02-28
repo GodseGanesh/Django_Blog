@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from .forms import *
-from django.core.paginator import Paginator,EmptyPage
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from .helpers import send_forgot_password_mail,send_contactus_mail,send_email_verify_otp
 from django.contrib.auth.models import User
 # from django.http import HttpResponseRedirect
@@ -20,7 +20,7 @@ def home(request):
     page_number=request.GET.get('page')  #fetching page no from url
     try:
         page_obj=p.get_page(page_number)  #return desired page object
-    except PageNotInteger:
+    except PageNotAnInteger:
         #if page is not integer then assign first page
         page_obj=p.page(1)
     except EmptyPage:
