@@ -24,10 +24,12 @@
       margin-top: 0.5rem;
    }
 </style>
-<div class="container " style="display: flex; justify-content: center;align-items: center;">
-   <div class="card mt-5" style="width: 30rem; height: auto;">
-      <div class="card-header">Register</div>
-      <div class="card-body" style="margin-left: 5rem;">
+<div class="container-fluid" style="width: 50%; height: auto;overflow: hidden;">
+   
+   <div class="card" >
+      <div class="card-header " ><div class="text-left">Register</div></div>
+      <div class="card-body d-flex flex-column align-items-center " style="overflow: hidden;">
+         <!-- <div class="container" style="width: 80%;"> -->
          <form method="POST" >
             {% csrf_token %}
 
@@ -57,9 +59,10 @@
                <p id="login">Already Have Account <a href="{% url 'login' %}">Login</a></p>
             </div>
          </form>
+      <!-- </div> -->
       </div>
    </div>
 </div>
-</div>
+
 
 {% endblock %}
