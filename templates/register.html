@@ -30,24 +30,25 @@
       <div class="card-header " ><div class="text-left">Register</div></div>
       <div class="card-body d-flex flex-column align-items-center " style="overflow: hidden;">
          <!-- <div class="container" style="width: 80%;"> -->
+         <div style="width: 80%;">
          <form method="POST" >
             {% csrf_token %}
 
             <div class="form-group">
                <label for="formGroupExampleInput">Username</label>
-               <div class="input" >{{ form.username }}</div>
+               <div>{{ form.username }}</div>
             </div>
             <div class="form-group">
                <label for="exampleInputEmail1">Email address</label>
-               <div class="input" >{{ form.email }}</div>
+               <div >{{ form.email }}</div>
             </div>
             <div class="form-group">
                <label for="exampleInputPassword1">Password</label>
-               <div class="input" >{{ form.password1 }}</div>
+               <div >{{ form.password1 }}</div>
             </div>
             <div class="form-group">
                <label for="exampleInputPassword1">Password Confirmation</label>
-               <div class="input" >{{ form.password2 }}</div>
+               <div >{{ form.password2 }}</div>
             </div>
             <div>
                {% for message in messages %}
@@ -59,7 +60,8 @@
                <p id="login">Already Have Account <a href="{% url 'login' %}">Login</a></p>
             </div>
          </form>
-      <!-- </div> -->
+      </div>
+      
       </div>
    </div>
 </div>
