@@ -227,7 +227,7 @@ def Search_Post(request):
             page_number=request.GET.get('page')  #fetching page no from url
             try:
                 page_obj=p.get_page(page_number)  #return desired page object
-            except PageNotInteger:
+            except PageNotAnInteger:
                 #if page is not integer then assign first page
                 page_obj=p.page(1)
             except EmptyPage:
@@ -250,7 +250,7 @@ def MyPost(request):
         page_number=request.GET.get('page')  #fetching page no from url
         try:
             page_obj=p.get_page(page_number)  #return desired page object
-        except PageNotInteger:
+        except PageNotAnInteger:
             #if page is not integer then assign first page
             page_obj=p.page(1)
         except EmptyPage:
