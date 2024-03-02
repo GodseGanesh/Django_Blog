@@ -22,6 +22,8 @@ urlpatterns = [
     path('otp_verification/<str:email>/',views.OtpVerification,name='otp_verification'),
     path('like_post/<int:pk>/',views.LikePost,name='like_post'),
     path('post/<int:pk>/comment',views.AddComment,name='addcomments'),
+    path('verify_email/',views.VerifyEmail,name='verify_email'),
+    path('email_success/',views.EmailSucces,name='email_success'),
 
     # path('reset_password/',auth_views.PasswordResetView.as_view(),name="reset_password"),
     # path('paaword_reset/done/',auth_views.PasswordResetDoneView.as_view(),name="password_reset_done"),

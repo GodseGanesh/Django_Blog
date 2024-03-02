@@ -1,6 +1,12 @@
 from django.core.mail import send_mail
 from django.conf import settings
 import random
+import re
+
+def validate_email(email):  
+    if re.match(r"[^@]+@[^@]+\.[^@]+", email):  
+        return True  
+    return False 
 
 
 def send_forgot_password_mail(email,token,username):

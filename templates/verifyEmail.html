@@ -1,0 +1,98 @@
+{% extends 'index.html' %} {% block title %} Email Verifcation {% endblock %} {%
+load static %} {% block content %}
+<script>
+  let timer;
+  let countdown = 60; // Set the countdown duration in seconds
+
+  function startResendTimer() {
+    // Disable the button during the countdown
+    document.getElementById("resendBtn").disabled = true;
+
+    // Start the countdown
+    timer = setInterval(updateTimer, 1000);
+
+    //submit form 
+    document.getElementById("form_id").submit()
+  }
+
+  function updateTimer() {
+    const timerElement = document.getElementById("timer");
+
+    if (countdown > 0) {
+      timerElement.textContent = `Resend in ${countdown} seconds`;
+      countdown--;
+    } else {
+      // Enable the button when the countdown reaches zero
+      document.getElementById("resendBtn").disabled = false;
+      timerElement.textContent = "";
+
+      // Reset countdown for the next attempt
+      countdown = 60;
+
+      // Stop the timer
+      clearInterval(timer);
+    }
+  }
+</script>
+
+<div
+  class="container"
+  style="display: flex; justify-content: center; padding: 4px"
+>
+  <div class="card mt-5" style="width: 25rem; height: 20rem">
+    <div class="card-body">
+      <form method="post" id="form_id">
+        {% csrf_token %}
+         {% if messages %}
+          {% for message in messages %}
+        <div class="alert alert-info">{{ message }}</div>
+        {% endfor %} 
+        {% endif %} 
+
+        {% if email_sendended %}
+        <div class="form-group">
+          <label for="formGroupExampleInput2">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            name="email"
+            value="{{ email }}"
+            id="formGroupExampleInput2"
+            placeholder=""
+          />
+        </div>
+
+        <div class="button" style="margin-top: 2rem">
+          <button
+            id="resendBtn"
+            class="btn btn-md btn-primary"
+            type="submit"
+            onclick="startResendTimer()"
+          >
+            Resend
+          </button>
+        </div>
+        <p id="timer" style="margin-top: 2rem;font-size: 10px;"></p>
+
+        {% else %}
+        <div class="form-group">
+          <label for="formGroupExampleInput2">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            name="email"
+            id="formGroupExampleInput2"
+            placeholder=""
+          />
+        </div>
+
+        <div class="button" style="margin-top: 2rem">
+          <button class="btn btn-md btn-primary" type="submit">Send</button>
+        </div>
+        {% endif %}
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

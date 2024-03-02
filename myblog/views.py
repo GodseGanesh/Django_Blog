@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from .forms import *
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
-from .helpers import send_forgot_password_mail,send_contactus_mail,send_email_verify_otp
+from .helpers import send_forgot_password_mail,send_contactus_mail,send_email_verify_otp,validate_email
 from django.contrib.auth.models import User
 # from django.http import HttpResponseRedirect
 # from django.urls import reverse
@@ -165,6 +165,57 @@ def ForgotPassword(request):
         print(e)
     
     return render(request,'forgot_password.html')
+
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.conf import settings
+
+
+
+def VerifyEmail(request):
+    try:
+        if request.method == "POST":
+            
+            user_email= request.POST.get('email')
+            print(user_email)
+            print(validate_email(user_email))
+            if(validate_email(user_email)):
+                # template= render_to_string('emailMessage.html',{'email':user_email}) 
+                # context={'email':user_email,'activation_link':'http://127.0.0.1:8000/email_success'}
+                context={'email':user_email,'activation_link':'https://ganeshgodse.pythonanywhere.com/email_success'}
+                email_content = render(request, 'emailMessage.html', context).content.decode('utf-8')
+            
+                email = EmailMessage (
+                    'Activate Your Account',
+                    email_content,
+                    settings.EMAIL_HOST_USER,
+                    [user_email],
+                )
+                email.fail_silently=False
+                email.content_subtype = 'html' 
+                email.send()
+                messages.success(request,'An email has been sent.')
+                context={'email_sendended':True,'email':user_email}
+            
+                return render(request,'verifyEmail.html',context)
+            else:
+                messages.info(request,'Inavlid Email Plaese Enter Valid Email')
+                return render(request,'verifyEmail.html')
+
+            
+        else:
+            print(request.method )
+
+    
+    except Exception as e:
+        
+        messages.info(request,'Invalid email please enter valid one')
+        print(e)
+    return render(request,'verifyEmail.html')
+
+
+def EmailSucces(request):
+    return redirect('register')
 
 def ChangePassword(request,username,token):
     try:
