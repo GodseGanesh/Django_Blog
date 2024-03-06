@@ -162,7 +162,7 @@ def ForgotPassword(request):
     except Exception as e:
         messages.info(request,'Please check your internet connection.')
         return redirect(f'/forgot_password/')
-        print(e)
+       
     
     return render(request,'forgot_password.html')
 
@@ -177,8 +177,8 @@ def VerifyEmail(request):
         if request.method == "POST":
             
             user_email= request.POST.get('email')
-            print(user_email)
-            print(validate_email(user_email))
+            # print(user_email)
+            # print(validate_email(user_email))
             if(validate_email(user_email)):
                 # template= render_to_string('emailMessage.html',{'email':user_email}) 
                 # context={'email':user_email,'activation_link':'http://127.0.0.1:8000/email_success'}

@@ -11,7 +11,7 @@ def validate_email(email):
 
 def send_forgot_password_mail(email,token,username):
     subject='Your forgot password link'
-    message=f'Hi, Click on the link to reset your password http://127.0.0.1:8000/change_password/{username}/{token}'
+    message=f'Hi, Click on the link to reset your password https://ganeshgodse.pythonanywhere.com/change_password/{username}/{token}'
     email_from=settings.EMAIL_HOST_USER
     recipent_list=[email]
     send_mail(subject,message,email_from,recipent_list,fail_silently=False)

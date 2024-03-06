@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Coding Thunder</title>
-
+    
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
     
     <link rel="stylesheet" href="{% static 'bootstrap.css' %}" />
@@ -56,7 +56,7 @@
             <form class="d-flex">
                 {% csrf_token %}
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+              <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
             </form>
             {% if user.is_authenticated %}
             <div class="logout mx-2" >Hello {{request.user}} <a href="{% url 'logout' %}" style="text-decoration: none;">Logout</a></div>
