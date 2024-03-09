@@ -1,12 +1,24 @@
 {% extends 'index.html' %}
-{% block title %} Login {% endblock %}
+{% block title %} Admin Login {% endblock %}
+
+<style>
+    .admin-login-form{
+        width: 100%;
+
+    }
+    .admin-login-form input {
+       width: 80%;
+   }
+
+    
+</style>
 
 {% block content %}
-<div class="container-fluid" style="width: 30%; height: auto;overflow: hidden;">
+<div class="container-fluid " style="width: auto; height: auto;overflow: hidden;align-items: center; justify-content: center;display: flex;">
     <div class="card mt-5" >
         <div class="card-header">Admin Login</div>
-        <div class="card-body">
-            <form class="form" role="form" method="POST" style="padding: 4px; margin: 2rem;">
+        <div class="card-body" >
+            <form class="form" role="form" method="POST" style="padding: 2rem; margin: 2rem;">
                 {% csrf_token %}
                 {% if messages %}
                 {% for message in messages %}
@@ -15,13 +27,17 @@
                 </div>
                 {% endfor %}
                 {% endif %}
+                <div class="admin-login-form">
                 {{ form.as_p }}
+                </div>
+                <div>
                 <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Login</button>
                 <p id="login" style="margin-top:1rem ;">Create New Password  <a
                      href="{% url 'forgot_password' %}">Forgottern Password</a></p>
+                </div>
             </form>
         </div>
     </div>
 </div>
-</div>
+
 {% endblock %}

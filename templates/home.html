@@ -111,8 +111,8 @@
 <center>
   {%if page_obj.has_previous %}
   <!-- whether the previous page exists -->
-  <a href="?page={{page_obj.previous_page_number}}" class="pagebutton"
-    >Previous</a
+  <a href="?page={{page_obj.previous_page_number}}" class="btn btn-light btn-outline-dark mx-4 p-2"
+    ><i class="fa fa-angle-double-left"> Previous </i></a
   >
   <!-- link to the prev page -->
 
@@ -122,7 +122,7 @@
 
   {%if page_obj.has_next %}
   <!-- whether the next page exists  -->
-  <a href="?page={{page_obj.next_page_number}}" class="pagebutton">Next</a>
+  <a href="?page={{page_obj.next_page_number}}" class="btn btn-light btn-outline-dark mx-4 p-2"> Next <i class="fa fa-angle-double-right"></i></a>
   <!-- link to the next page  -->
   {% endif %}
 </center>

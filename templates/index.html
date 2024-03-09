@@ -59,9 +59,11 @@
               <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
             </form>
             {% if user.is_authenticated %}
-            <div class="logout mx-2" >Hello {{request.user}} <a href="{% url 'logout' %}" style="text-decoration: none;">Logout</a></div>
+            <div class="logout mx-2" >Hello {{request.user}} <a href="{% url 'logout' %}" class="btn btn-outline-primary" style="text-decoration: none;">Logout</a></div>
             {% else %}
-            <div class="login mx-2"><a href="{% url 'login' %}" style="text-decoration: none;">Register/Login</a></div>
+            <div class="login mx-2"><a href="{% url 'login' %}" class="btn btn-outline-primary" style="text-decoration: none;">Login</a>
+              <a href="{% url 'login' %}" class="btn btn-primary" style="text-decoration: none;">SinUp</a>
+            </div>
             {% endif %}
           </div>
         </div>

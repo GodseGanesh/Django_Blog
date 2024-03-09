@@ -54,7 +54,7 @@
 </div>
 {% endfor %}
 {% endif %}
-
+{% if page_obj %}
 {% for post in page_obj %}
 
 <div class="container-fluid" style="width: 80%; margin-top: 2rem">
@@ -125,6 +125,9 @@
 </div>
 
 {% endfor %}
+{% else %}
+<p style="margin-top: 2rem;"> NO Posts </p>
+
 
 <center>
     {%if page_obj.has_previous %} <!-- whether the previous page exists -->
